@@ -1,0 +1,82 @@
+<style>
+    body {
+    font-size: 10pt;
+    font-family: arial, sans-serif;
+    }
+    
+    a {
+    text-decoration: none;
+    
+    }
+    
+    a:hover {
+    text-decoration: underline;
+    }
+
+    .search-wrapper {
+        height: 15vh;
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        padding-left: 50px;
+      }
+
+      form {
+        position: relative;
+        margin-top: 30px;
+      }
+      
+      input {
+        width: 580px;
+        height: 45px;
+        padding-left: 50px;
+        font-size: 1.2rem;
+        border-radius: 45px;
+        border: 1px solid #d3d3d3;
+      }
+      
+      input:hover {
+        box-shadow: 0 1px 3px 1px rgba(201, 201, 201, 0.5);
+      }
+      
+      input:focus {
+        outline: none;
+      }
+      
+      .search {
+        width: 15px;
+        position: absolute;
+        top: 15px;
+        left: 15px;
+      }
+      
+      .mic {
+        width: 15px;
+        position: absolute;
+        top: 12px;
+        left: 540px;
+      }
+      
+</style>
+</div>
+<section class="search-wrapper">  
+    <form method="POST" action="search">
+        {% csrf_token %}
+      <input type="text" name="search" autofocus x-webkit-speech/>
+      <img class="search" src="/templates/images/search.png">
+      <img class="mic" src="/templates/images/mic.png">
+    </form>
+</section>
+
+{% if final_result %}
+<b style="padding-left: 50px; padding-right: 50px; color: #646464;">Web Results</b>
+{% for result in final_result %}
+<div style="padding-left: 50px; padding-right: 50px;">
+    <h3 style="color: blue;"><a href="{{ result.1 }}">{{ result.0 }}</a></h3>
+    <h3 style="color: green;">{{ result.1 }}</h3>
+    <h3>{{ result.2 }}</h3>
+</div><br><br>
+{% endfor %}
+{% endif %}
+
+    
